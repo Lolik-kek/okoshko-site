@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Окошко — телеграм-бот записи клиентов для частных мастеров</title>
+<meta name="description" content="Онлайн-запись для маникюра, барберов, репетиторов и психологов прямо в Telegram. Клиент сам выбирает свободное окошко, напоминания уходят сами. Бесплатно до 30 записей в месяц, без банковской карты.">
+<meta property="og:title" content="Окошко — запись клиентов в Telegram">
+<meta property="og:description" content="Клиент сам выбирает время по твоей ссылке. Напоминания — сами. Без карты и касс.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Golos+Text:wght@400;500;600&family=Neucha&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#faf5ec;
+  --paper-deep:#f3ecdd;
+  --ink:#26211a;
+  --ink-soft:#6b6254;
+  --line:#d9cfbc;
+  --accent:#e8590c;
+  --accent-dark:#c44a08;
+  --mint:#2f9e6e;
+  --window:#fffdf8;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--paper);
+  color:var(--ink);
+  font-family:'Golos Text',sans-serif;
+  font-size:17px;line-height:1.65;
+  background-image:radial-gradient(var(--line) .8px,transparent .8px);
+  background-size:22px 22px;
+}
+.wrap{max-width:1080px;margin:0 auto;padding:0 24px}
+
+/* ---------- шапка ---------- */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(250,245,236,.92);backdrop-filter:blur(8px);
+  border-bottom:1.5px solid var(--line);
+}
+.nav{display:flex;align-items:center;justify-content:space-between;height:64px}
+.logo{font-family:'Prata',serif;font-size:24px;display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink)}
+.logo-mark{
+  width:30px;height:30px;border:2.5px solid var(--ink);border-radius:8px 8px 8px 0;
+  position:relative;background:var(--accent);
+}
+.logo-mark::after{content:'';position:absolute;inset:5px;background:var(--window);border-radius:4px}
+.btn{
+  display:inline-block;font-weight:600;text-decoration:none;
+  padding:12px 26px;border-radius:14px;transition:.18s;
+}
+.btn-accent{background:var(--accent);color:#fff;box-shadow:0 4px 0 var(--accent-dark)}
+.btn-accent:hover{transform:translateY(-2px);box-shadow:0 6px 0 var(--accent-dark)}
+.btn-ghost{color:var(--ink);border:1.5px solid var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--paper)}
+
+/* ---------- герой ---------- */
+.hero{padding:72px 0 60px;display:grid;grid-template-columns:1.15fr .85fr;gap:48px;align-items:center}
+.kicker{
+  font-family:'Neucha',cursive;font-size:22px;color:var(--accent);
+  transform:rotate(-1.5deg);display:inline-block;margin-bottom:14px;
+}
+h1{
+  font-family:'Prata',serif;font-weight:400;
+  font-size:clamp(34px,4.6vw,54px);line-height:1.14;margin-bottom:20px;
+}
+h1 em{font-style:normal;background:linear-gradient(transparent 62%,#ffd8a8 62%)}
+.hero p.lead{font-size:19px;color:var(--ink-soft);max-width:46ch;margin-bottom:30px}
+.cta-row{display:flex;gap:14px;flex-wrap:wrap;align-items:center}
+.micronote{font-family:'Neucha',cursive;font-size:18px;color:var(--ink-soft)}
+
+/* мокап чата */
+.chat{
+  background:var(--window);border:2px solid var(--ink);border-radius:22px 22px 22px 4px;
+  box-shadow:8px 8px 0 rgba(38,33,26,.12);
+  overflow:hidden;transform:rotate(1.4deg);
+}
+.chat-top{
+  background:var(--ink);color:var(--paper);padding:12px 18px;
+  display:flex;align-items:center;gap:10px;font-size:15px;font-weight:600;
+}
+.chat-top .dot{width:10px;height:10px;border-radius:50%;background:var(--mint)}
+.msgs{padding:18px;display:flex;flex-direction:column;gap:10px;font-size:14.5px}
+.msg{max-width:82%;padding:10px 14px;border-radius:16px;line-height:1.45}
+.msg.bot{align-self:flex-start;background:var(--paper-deep);border:1.5px solid var(--line)}
+.msg.user{align-self:flex-end;background:#dcf3c4;border:1.5px solid #b7dfa0}
+.slot-grid{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.slot{
+  border:1.5px solid var(--accent);color:var(--accent-dark);
+  padding:3px 9px;border-radius:9px;font-weight:600;font-size:13px;
+}
+.slot.taken{border-color:var(--line);color:var(--ink-soft);text-decoration:line-through}
+.typing{align-self:flex-start;color:var(--ink-soft);font-family:'Neucha',cursive;font-size:16px}
+
+/* ---------- секции ---------- */
+section{padding:70px 0}
+.sec-title{font-family:'Prata',serif;font-size:clamp(27px,3.2vw,38px);margin-bottom:10px}
+.sec-sub{color:var(--ink-soft);margin-bottom:40px;max-width:56ch}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.step{
+  background:var(--window);border:2px solid var(--ink);border-radius:18px 18px 18px 4px;
+  padding:26px 24px;position:relative;box-shadow:6px 6px 0 rgba(38,33,26,.09);
+}
+.step-num{
+  font-family:'Neucha',cursive;font-size:52px;color:var(--accent);
+  line-height:1;position:absolute;top:-18px;left:20px;background:var(--paper);padding:0 8px;
+}
+.step h3{font-family:'Prata',serif;font-weight:400;font-size:21px;margin:14px 0 8px}
+.step p{font-size:15.5px;color:var(--ink-soft)}
+
+.features{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
+.feat{
+  display:flex;gap:16px;align-items:flex-start;
+  background:var(--window);border:1.5px dashed var(--line);border-radius:16px;padding:20px 22px;
+}
+.feat:hover{border-color:var(--accent);transition:.2s}
+.feat-ico{
+  font-size:26px;width:52px;height:52px;flex:none;
+  display:grid;place-items:center;background:var(--paper-deep);
+  border:2px solid var(--ink);border-radius:14px 14px 14px 3px;
+}
+.feat b{display:block;margin-bottom:3px;font-size:16.5px}
+.feat span{font-size:15px;color:var(--ink-soft)}
+
+.verticals{display:flex;flex-wrap:wrap;gap:12px}
+.vtag{
+  font-family:'Neucha',cursive;font-size:20px;
+  border:2px solid var(--ink);border-radius:999px;padding:8px 22px;background:var(--window);
+}
+.vtag.hot{background:var(--accent);color:#fff;transform:rotate(-2deg)}
+
+/* ---------- тарифы ---------- */
+.plans{display:grid;grid-template-columns:repeat(2,minmax(0,380px));gap:26px;justify-content:center}
+.plan{
+  background:var(--window);border:2px solid var(--ink);border-radius:20px 20px 20px 5px;
+  padding:34px 30px;position:relative;box-shadow:8px 8px 0 rgba(38,33,26,.1);
+}
+.plan.pro{transform:rotate(-1.2deg);border-color:var(--accent);border-width:2.5px}
+.sticker{
+  font-family:'Neucha',cursive;font-size:19px;color:#fff;background:var(--accent);
+  padding:5px 16px;border-radius:999px;position:absolute;top:-16px;right:22px;transform:rotate(2deg);
+}
+.plan h3{font-family:'Prata',serif;font-weight:400;font-size:24px;margin-bottom:4px}
+.price{font-size:40px;font-weight:600;margin:10px 0 2px}
+.price small{font-size:17px;color:var(--ink-soft);font-weight:400}
+.plan ul{list-style:none;margin:18px 0 24px}
+.plan li{padding:7px 0 7px 30px;position:relative;font-size:15.5px;border-bottom:1px dashed var(--line)}
+.plan li::before{content:'✓';position:absolute;left:2px;color:var(--mint);font-weight:700}
+.plan li.off{color:var(--ink-soft)}
+.plan li.off::before{content:'—';color:var(--line)}
+.plan .btn{width:100%;text-align:center}
+
+/* ---------- faq ---------- */
+.faq{max-width:720px}
+details{border-bottom:1.5px dashed var(--line);padding:16px 4px}
+summary{
+  cursor:pointer;font-weight:600;font-size:17px;list-style:none;
+  display:flex;justify-content:space-between;align-items:center;gap:14px;
+}
+summary::after{content:'+';font-size:26px;color:var(--accent);transition:.2s}
+details[open] summary::after{transform:rotate(45deg)}
+details p{padding-top:10px;color:var(--ink-soft);font-size:15.5px}
+
+/* ---------- футер CTA ---------- */
+.final{
+  text-align:center;background:var(--ink);color:var(--paper);
+  border-radius:28px 28px 28px 6px;padding:66px 30px;margin:20px 0 80px;
+}
+.final h2{font-family:'Prata',serif;font-weight:400;font-size:clamp(28px,3.4vw,42px);margin-bottom:12px}
+.final p{color:#b8ad99;margin-bottom:30px}
+.final .btn-accent{font-size:18px;padding:16px 38px}
+
+footer{padding:26px 0 50px;color:var(--ink-soft);font-size:14px;display:flex;justify-content:space-between;gap:14px;flex-wrap:wrap}
+footer a{color:var(--ink-soft)}
+
+@media(max-width:900px){
+  .hero{grid-template-columns:1fr;padding:46px 0}
+  .chat{transform:none;max-width:420px}
+  .steps,.features,.plans{grid-template-columns:1fr}
+  section{padding:52px 0}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/"><span class="logo-mark"></span>Окошко</a>
+    <a class="btn btn-accent" href="https://t.me/okoshko_zapisi_bot" rel="noopener">Открыть бота</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <span class="kicker">← для частных мастеров, а не салонов</span>
+      <h1>Запись клиентов —<br>в одно <em>окошко</em></h1>
+      <p class="lead">Кидаете клиентам ссылку — они сами выбирают услугу и свободное время прямо в Telegram. Напоминания о визите летят сами. Настройка занимает минуту.</p>
+      <div class="cta-row">
+        <a class="btn btn-accent" href="https://t.me/okoshko_zapisi_bot" rel="noopener">Настроить за минуту</a>
+        <span class="micronote">карта не нужна ✋</span>
+      </div>
+    </div>
+    <div class="chat">
+      <div class="chat-top"><span class="dot"></span> Окошко · бот записи</div>
+      <div class="msgs">
+        <div class="msg bot">Аня · маникюр 💅<br>Выберите услугу:</div>
+        <div class="msg user">Маникюр с покрытием · 60 мин · от 1500₽</div>
+        <div class="msg bot">Свободные окошки на четверг:<div class="slot-grid">
+          <span class="slot taken">10:00</span><span class="slot taken">11:00</span>
+          <span class="slot">13:00</span><span class="slot">15:00</span><span class="slot">16:00</span>
+        </div></div>
+        <div class="msg user">13:00 подхожу!</div>
+        <div class="msg bot">✅ Записала! Напомню за сутки и за 2 часа 🙌</div>
+        <div class="typing">клиент записался сам…</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="how">
+    <h2 class="sec-title">Как это работает</h2>
+    <p class="sec-sub">Никаких приложений, кабинетов и логинов. Всё живёт в Telegram, где вы уже общаетесь с клиентами.</p>
+    <div class="steps">
+      <div class="step"><span class="step-num">1</span><h3>Настроились</h3><p>Имя, график работы, услуги с ценами и длительностью — бот проведёт за минуту, вопросы задаёт по одному.</p></div>
+      <div class="step"><span class="step-num">2</span><h3>Кинули ссылку</h3><p>Одна ссылка на всё: в шапку профиля, в сторис, в ответ на сообщение «а когда можно?».</p></div>
+      <div class="step"><span class="step-num">3</span><h3>Клиент записался сам</h3><p>Выбирает услугу, день и свободное окошко. Два клиента на одно время попасть не могут — физически.</p></div>
+    </div>
+  </section>
+
+  <section id="features" style="background:var(--paper-deep);border-block:1.5px solid var(--line)">
+    <h2 class="sec-title">Что делает за вас</h2>
+    <p class="sec-sub">Скучная административная часть — боту. Вам — руки и клиенты.</p>
+    <div class="features">
+      <div class="feat"><span class="feat-ico">⏰</span><div><b>Напоминания вместо «не пришедших»</b><span>Клиенту уходит напоминание за сутки и за 2 часа до визита — отменить или перенести можно прямо из сообщения.</span></div></div>
+      <div class="feat"><span class="feat-ico">☀️</span><div><b>Утренняя сводка</b><span>В 9:00 ваш часовой пояс — список всех записей на день. Открыли утром — и весь день перед глазами.</span></div></div>
+      <div class="feat"><span class="feat-ico">🚫</span><div><b>Без двойных записей</b><span>Слоты считаются из вашего графика и длины услуг. Занято — значит занято, даже если двое жали одновременно.</span></div></div>
+      <div class="feat"><span class="feat-ico">⛔</span><div><b>Выходные и свой график</b><span>Отдыхаете — слотов просто нет. Поменяли расписание — витрина обновилась мгновенно.</span></div></div>
+      <div class="feat"><span class="feat-ico">🎁</span><div><b>Плюс за друзей</b><span>Привели коллегу-мастера по своей ссылке — неделя PRO в подарок. И ей приятно, и вам.</span></div></div>
+      <div class="feat"><span class="feat-ico">⭐</span><div><b>Оплата звёздами</b><span>PRO оплачивается прямо в Telegram звёздами Stars. Банковская карта не нужна ни вам, ни кому-либо.</span></div></div>
+    </div>
+  </section>
+
+  <section id="who">
+    <h2 class="sec-title">Кому подходит</h2>
+    <p class="sec-sub">Всем, кто принимает клиентов по предварительной записи и работает сам на себя:</p>
+    <div class="verticals">
+      <span class="vtag hot">💅 маникюр / педикюр</span>
+      <span class="vtag">👁 ресницы и брови</span>
+      <span class="vtag">💈 барберы</span>
+      <span class="vtag">💇 парикмахеры</span>
+      <span class="vtag">📚 репетиторы</span>
+      <span class="vtag">🧠 психологи</span>
+      <span class="vtag">📸 фотографы</span>
+      <span class="vtag">🏋️ тренеры</span>
+      <span class="vtag">💆 массаж</span>
+      <span class="vtag">✨ …и любой «запись по окошкам»</span>
+    </div>
+  </section>
+
+  <section id="pricing" style="background:var(--paper-deep);border-block:1.5px solid var(--line)">
+    <h2 class="sec-title">Тарифы</h2>
+    <p class="sec-sub">Честно и без сюрпризов: пробуете бесплатно, платите только когда бот реально приносит записи.</p>
+    <div class="plans">
+      <div class="plan">
+        <h3>Свободный</h3>
+        <div class="price">0 ₽<small> навсегда</small></div>
+        <ul>
+          <li>До 30 записей в месяц</li>
+          <li>Все услуги, график, выходные</li>
+          <li>Напоминания клиенту</li>
+          <li>Утренняя сводка</li>
+          <li class="off">Приоритетная поддержка</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://t.me/okoshko_zapisi_bot" rel="noopener">Начать бесплатно</a>
+      </div>
+      <div class="plan pro">
+        <span class="sticker">выбор мастеров</span>
+        <h3>PRO ⭐</h3>
+        <div class="price">300 ⭐<small> / месяц</small></div>
+        <ul>
+          <li>Записи без лимита</li>
+          <li>Всё из бесплатного тарифа</li>
+          <li>Оплата звёздами Telegram — карта не нужна</li>
+          <li>Можно помесячно или понедельно (100 ⭐)</li>
+          <li>Приоритетная поддержка</li>
+        </ul>
+        <a class="btn btn-accent" href="https://t.me/okoshko_zapisi_bot" rel="noopener">Попробовать PRO</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2 class="sec-title">Вопросы</h2>
+    <div class="faq">
+      <details><summary>Правда не нужна банковская карта?</summary><p>Правда. Подписка PRO оплачивается внутренней валютой Telegram — звёздами Stars, покупаются они прямо в приложении за пару касаний. Ни карту, ни реквизиты вводить нигде не нужно.</p></details>
+      <details><summary>А если клиент запишется и не придёт?</summary><p>Бот напоминает дважды — за сутки и за 2 часа. По опыту сервисов записи это резко снижает «не пришедших»: человек видит визит в планах заранее. Отменить запись клиент может сам — вы сразу увидите, что окошко освободилось.</p></details>
+      <details><summary>У меня не маникюр, а репетиторство. Мне зайдёт?</summary><p>Да, бот универсален: услуги, цены и длительность вы настраиваете под себя. Репетиторы ставят занятия по 60–90 минут, фотографы — съёмки на полдня.</p></details>
+      <details><summary>Клиенту неудобно будет?</summary><p>Наоборот: он жмёт вашу ссылку прямо в Telegram, три касания — и запись подтверждена. Никаких форм, звонков и «давайте в личку обсудим».</p></details>
+      <details><summary>Чем это лучше YClients?</summary><p>YClients — мощная система для салонов со складами и зарплатами, но для частного мастера это как грузовик для поездки за хлебом, и стоит от 690 ₽ в месяц. «Окошко» делает ровно одну вещь — запись и напоминания, зато стоит 300 ⭐ и настраивается за минуту.</p></details>
+    </div>
+  </section>
+
+  <div class="final">
+    <h2>Последний «неудобный» способ — переписка.<br>Сделайте удобнее.</h2>
+    <p>Настройка занимает минуту. Первые 30 записей в месяц — бесплатно.</p>
+    <a class="btn btn-accent" href="https://t.me/okoshko_zapisi_bot" rel="noopener">Открыть @okoshko_zapisi_bot</a>
+  </div>
+
+  <footer>
+    <span>© 2026 Окошко · запись клиентов для частных мастеров</span>
+    <span><a href="https://t.me/okoshko_zapisi_bot">Telegram-бот</a> · <a href="/">лендинг</a></span>
+  </footer>
+</div>
+
+</body>
+</html>
