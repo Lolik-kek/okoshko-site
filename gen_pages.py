@@ -11,7 +11,7 @@ HEAD_TPL = """<title>{title}</title>
 <meta property="og:title" content="{title}">
 <meta property="og:description" content="{desc}">
     <link rel="stylesheet" href="/okoshko-site/styles.css">
-</head-placeholder>"""
+"""
 
 BODY_TPL = """
 <div class="wrap">
@@ -178,10 +178,9 @@ def build(page):
         final_p=page["final_p"],
     )
     html = SHELL
-    # заменяем старые метатеги head (вплоть до </head>)
+    # заменяем старые метатеги head (вплоть до </head>, сам тег остаётся)
     old_title = html[html.index("<title>") : html.index("</head>")]
     html = html.replace(old_title, head)
-    html = html.replace("</head-placeholder>", "</head>", 1)
     # вырезаем тело между </header> и <footer... нет — между hero-wrap началом и footer
     start = html.index('<div class="wrap">\n  <div class="hero"')
     end = html.index("  <footer>")
