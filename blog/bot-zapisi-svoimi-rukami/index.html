@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Бот записи своими руками или готовый сервис: что выбрать — Окошко</title>
+<meta name="description" content="Стоит ли писать телеграм-бот записи самостоятельно: время разработки, подводные камни (двойные записи, напоминания, часовые пояса) и когда готовый сервис выгоднее.">
+<meta property="og:title" content="Бот записи своими руками или готовый сервис: что выбрать — Окошко">
+<link rel="stylesheet" href="/okoshko-site/styles.css">
+
+<style>
+.article{max-width:760px;margin:0 auto;padding:56px 24px}
+.article h1{font-family:'Prata',serif;font-weight:400;font-size:clamp(28px,3.6vw,42px);line-height:1.2;margin-bottom:18px}
+.article .meta{font-family:'Neucha',cursive;color:var(--accent);font-size:20px;margin-bottom:26px;transform:rotate(-.8deg);display:inline-block}
+.article h2{font-family:'Prata',serif;font-weight:400;font-size:25px;margin:34px 0 12px}
+.article p{margin-bottom:16px;color:#3d372e}
+.article ul,.article ol{margin:0 0 16px 22px;color:#3d372e}
+.article li{margin-bottom:8px}
+.article table{width:100%;border-collapse:collapse;margin:14px 0 20px;font-size:15px}
+.article th,.article td{border:1.5px solid var(--line);padding:8px 10px;text-align:left}
+.article th{background:var(--paper-deep)}
+.cta-box{background:var(--ink);color:var(--paper);border-radius:20px 20px 20px 5px;padding:30px;margin:36px 0;text-align:center}
+.cta-box p{color:#b8ad99;margin-bottom:16px}
+</style>
+
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/"><span class="logo-mark"></span>Окошко</a>
+    <a class="btn btn-accent" href="https://t.me/okoshko_zapisi_bot" rel="noopener">Открыть бота</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <article class="article">
+    <a class="back" href="/okoshko-site/">← главная</a><br><br>
+    <span class="meta">для техничных мастеров</span>
+    <h1>Бот записи:<br>сделать самому или купить?</h1>
+    
+<p>Если вы умеете программировать, соберёте простой бот записи за вечер — туториалов полно. Но «работает у меня на столе» и «работает у клиентов» разделяют месяцы. Честный разбор обеих дорог.</p>
+
+<h2>Что вы обязаны построить сами (если сами)</h2>
+<ul>
+<li>Генерация слотов из графика + длительности услуг;</li>
+<li><b>Атомарную защиту от двойной записи</b> — два клиента жмут одновременно, кто-то должен получить отказ;</li>
+<li>Напоминания за сутки и за 2 часа + обработку отмен;</li>
+<li>Часовые пояса (клиент в другом регионе — и всё съехало);</li>
+<li>Хостинг 24/7, бэкапы, мониторинг падений;</li>
+<li>Поддержку: «у меня не записывается» придётся разбирать вам же.</li>
+</ul>
+
+<h2>Что вы получаете с готовым сервисом</h2>
+<ul>
+<li>Все пункты выше — уже решённые и обкатанные чужими ошибками;</li>
+<li>Обновления и починку бесплатно;</li>
+<li>Ваше время — на клиентов, а не на поддержку себя в роли хостера.</li>
+</ul>
+
+<h2>Арифметика</h2>
+<p>Час работы мастера — от 1000₽. Свой бот отнимет минимум 40–60 часов на старте плюс несколько часов в месяц на обслуживание. Готовый PRO-тариф — около 300₽/мес. Считайте сами, что дешевле: ваше время стоит дороже кода.</p>
+
+<h2>Когда свой бот оправдан</h2>
+<p>Если это ваш пет-проект для обучения — конечно делайте, отличная практика. Для бизнеса берите готовое и не смешивайте роли «мастер» и «сисадмин самого себя».</p>
+
+    <div class="cta-box"><h2>Попробуйте «Окошко» бесплатно</h2><p>Настройка за минуту, первые 30 записей в месяц — без оплаты.</p><a class="btn btn-accent" href="https://t.me/okoshko_zapisi_bot" rel="noopener">Открыть бота</a></div>
+  </article>
+
+  <footer>
+    <span>© 2026 Окошко · <a href="/okoshko-site/">главная</a></span>
+    <span><a href="https://t.me/okoshko_zapisi_bot">Telegram-бот</a></span>
+  </footer>
+</div>
+
+  <footer>
+    <span><a href="https://t.me/okoshko_zapisi_bot">Telegram-бот</a></span>
+    <span>
+      <a href="/okoshko-site/blog/oplata-bez-karty/">запись без карты</a> ·
+      <a href="/okoshko-site/blog/yclients-dorogo/">YClients vs Окошко</a> ·
+      <a href="/okoshko-site/blog/klienty-ne-prichodjat/">против no-show</a>
+    </span>
+    <span><a href="https://t.me/okoshko_zapisi_bot">Telegram-бот</a> · <a href="/">лендинг</a></span>
+  </footer>
+</div>
+
+</body>
+</html>
