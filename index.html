@@ -1,1 +1,152 @@
-﻿
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Окошко — телеграм-бот записи клиентов для частных мастеров</title>
+<meta name="description" content="Онлайн-запись для маникюра, барберов, репетиторов и психологов прямо в Telegram. Клиент сам выбирает свободное окошко, напоминания уходят сами. Бесплатно до 30 записей в месяц, без банковской карты.">
+<meta property="og:title" content="Окошко — запись клиентов в Telegram">
+<meta property="og:description" content="Клиент сам выбирает время по твоей ссылке. Напоминания — сами. Без карты и касс.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Prata&family=Golos+Text:wght@400;500;600&family=Neucha&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/okoshko-site/styles.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap nav">
+    <a class="logo" href="/"><span class="logo-mark"></span>Окошко</a>
+    <a class="btn btn-accent" href="https://t.me/okoshko_zapisi_bot" rel="noopener">Открыть бота</a>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="hero">
+    <div>
+      <span class="kicker">← для частных мастеров, а не салонов</span>
+      <h1>Запись клиентов —<br>в одно <em>окошко</em></h1>
+      <p class="lead">Кидаете клиентам ссылку — они сами выбирают услугу и свободное время прямо в Telegram. Напоминания о визите летят сами. Настройка занимает минуту.</p>
+      <div class="cta-row">
+        <a class="btn btn-accent" href="https://t.me/okoshko_zapisi_bot" rel="noopener">Настроить за минуту</a>
+        <span class="micronote">карта не нужна ✋</span>
+      </div>
+    </div>
+    <div class="chat">
+      <div class="chat-top"><span class="dot"></span> Окошко · бот записи</div>
+      <div class="msgs">
+        <div class="msg bot">Аня · маникюр 💅<br>Выберите услугу:</div>
+        <div class="msg user">Маникюр с покрытием · 60 мин · от 1500₽</div>
+        <div class="msg bot">Свободные окошки на четверг:<div class="slot-grid">
+          <span class="slot taken">10:00</span><span class="slot taken">11:00</span>
+          <span class="slot">13:00</span><span class="slot">15:00</span><span class="slot">16:00</span>
+        </div></div>
+        <div class="msg user">13:00 подхожу!</div>
+        <div class="msg bot">✅ Записала! Напомню за сутки и за 2 часа 🙌</div>
+        <div class="typing">клиент записался сам…</div>
+      </div>
+    </div>
+  </div>
+
+  <section id="how">
+    <h2 class="sec-title">Как это работает</h2>
+    <p class="sec-sub">Никаких приложений, кабинетов и логинов. Всё живёт в Telegram, где вы уже общаетесь с клиентами.</p>
+    <div class="steps">
+      <div class="step"><span class="step-num">1</span><h3>Настроились</h3><p>Имя, график работы, услуги с ценами и длительностью — бот проведёт за минуту, вопросы задаёт по одному.</p></div>
+      <div class="step"><span class="step-num">2</span><h3>Кинули ссылку</h3><p>Одна ссылка на всё: в шапку профиля, в сторис, в ответ на сообщение «а когда можно?».</p></div>
+      <div class="step"><span class="step-num">3</span><h3>Клиент записался сам</h3><p>Выбирает услугу, день и свободное окошко. Два клиента на одно время попасть не могут — физически.</p></div>
+    </div>
+  </section>
+
+  <section id="features" style="background:var(--paper-deep);border-block:1.5px solid var(--line)">
+    <h2 class="sec-title">Что делает за вас</h2>
+    <p class="sec-sub">Скучная административная часть — боту. Вам — руки и клиенты.</p>
+    <div class="features">
+      <div class="feat"><span class="feat-ico">⏰</span><div><b>Напоминания вместо «не пришедших»</b><span>Клиенту уходит напоминание за сутки и за 2 часа до визита — отменить или перенести можно прямо из сообщения.</span></div></div>
+      <div class="feat"><span class="feat-ico">☀️</span><div><b>Утренняя сводка</b><span>В 9:00 ваш часовой пояс — список всех записей на день. Открыли утром — и весь день перед глазами.</span></div></div>
+      <div class="feat"><span class="feat-ico">🚫</span><div><b>Без двойных записей</b><span>Слоты считаются из вашего графика и длины услуг. Занято — значит занято, даже если двое жали одновременно.</span></div></div>
+      <div class="feat"><span class="feat-ico">⛔</span><div><b>Выходные и свой график</b><span>Отдыхаете — слотов просто нет. Поменяли расписание — витрина обновилась мгновенно.</span></div></div>
+      <div class="feat"><span class="feat-ico">🎁</span><div><b>Плюс за друзей</b><span>Привели коллегу-мастера по своей ссылке — неделя PRO в подарок. И ей приятно, и вам.</span></div></div>
+      <div class="feat"><span class="feat-ico">⭐</span><div><b>Оплата звёздами</b><span>PRO оплачивается прямо в Telegram звёздами Stars. Банковская карта не нужна ни вам, ни кому-либо.</span></div></div>
+    </div>
+  </section>
+
+  <section id="who">
+    <h2 class="sec-title">Кому подходит</h2>
+    <p class="sec-sub">Всем, кто принимает клиентов по предварительной записи и работает сам на себя:</p>
+    <div class="verticals">
+      <span class="vtag hot">💅 маникюр / педикюр</span>
+      <span class="vtag">👁 ресницы и брови</span>
+      <span class="vtag">💈 барберы</span>
+      <span class="vtag">💇 парикмахеры</span>
+      <span class="vtag">📚 репетиторы</span>
+      <span class="vtag">🧠 психологи</span>
+      <span class="vtag">📸 фотографы</span>
+      <span class="vtag">🏋️ тренеры</span>
+      <span class="vtag">💆 массаж</span>
+      <span class="vtag">✨ …и любой «запись по окошкам»</span>
+    </div>
+  </section>
+
+  <section id="pricing" style="background:var(--paper-deep);border-block:1.5px solid var(--line)">
+    <h2 class="sec-title">Тарифы</h2>
+    <p class="sec-sub">Честно и без сюрпризов: пробуете бесплатно, платите только когда бот реально приносит записи.</p>
+    <div class="plans">
+      <div class="plan">
+        <h3>Свободный</h3>
+        <div class="price">0 ₽<small> навсегда</small></div>
+        <ul>
+          <li>До 30 записей в месяц</li>
+          <li>Все услуги, график, выходные</li>
+          <li>Напоминания клиенту</li>
+          <li>Утренняя сводка</li>
+          <li class="off">Приоритетная поддержка</li>
+        </ul>
+        <a class="btn btn-ghost" href="https://t.me/okoshko_zapisi_bot" rel="noopener">Начать бесплатно</a>
+      </div>
+      <div class="plan pro">
+        <span class="sticker">выбор мастеров</span>
+        <h3>PRO ⭐</h3>
+        <div class="price">300 ⭐<small> / месяц</small></div>
+        <ul>
+          <li>Записи без лимита</li>
+          <li>Всё из бесплатного тарифа</li>
+          <li>Оплата звёздами Telegram — карта не нужна</li>
+          <li>Можно помесячно или понедельно (100 ⭐)</li>
+          <li>Приоритетная поддержка</li>
+        </ul>
+        <a class="btn btn-accent" href="https://t.me/okoshko_zapisi_bot" rel="noopener">Попробовать PRO</a>
+      </div>
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2 class="sec-title">Вопросы</h2>
+    <div class="faq">
+      <details><summary>Правда не нужна банковская карта?</summary><p>Правда. Подписка PRO оплачивается внутренней валютой Telegram — звёздами Stars, покупаются они прямо в приложении за пару касаний. Ни карту, ни реквизиты вводить нигде не нужно.</p></details>
+      <details><summary>А если клиент запишется и не придёт?</summary><p>Бот напоминает дважды — за сутки и за 2 часа. По опыту сервисов записи это резко снижает «не пришедших»: человек видит визит в планах заранее. Отменить запись клиент может сам — вы сразу увидите, что окошко освободилось.</p></details>
+      <details><summary>У меня не маникюр, а репетиторство. Мне зайдёт?</summary><p>Да, бот универсален: услуги, цены и длительность вы настраиваете под себя. Репетиторы ставят занятия по 60–90 минут, фотографы — съёмки на полдня.</p></details>
+      <details><summary>Клиенту неудобно будет?</summary><p>Наоборот: он жмёт вашу ссылку прямо в Telegram, три касания — и запись подтверждена. Никаких форм, звонков и «давайте в личку обсудим».</p></details>
+      <details><summary>Чем это лучше YClients?</summary><p>YClients — мощная система для салонов со складами и зарплатами, но для частного мастера это как грузовик для поездки за хлебом, и стоит от 690 ₽ в месяц. «Окошко» делает ровно одну вещь — запись и напоминания, зато стоит 300 ⭐ и настраивается за минуту.</p></details>
+    </div>
+  </section>
+
+  <div class="final">
+    <h2>Последний «неудобный» способ — переписка.<br>Сделайте удобнее.</h2>
+    <p>Настройка занимает минуту. Первые 30 записей в месяц — бесплатно.</p>
+    <a class="btn btn-accent" href="https://t.me/okoshko_zapisi_bot" rel="noopener">Открыть @okoshko_zapisi_bot</a>
+  </div>
+
+  <footer>
+    <span><a href="https://t.me/okoshko_zapisi_bot">Telegram-бот</a></span>
+    <span>
+      <a href="/okoshko-site/blog/oplata-bez-karty/">запись без карты</a> ·
+      <a href="/okoshko-site/blog/yclients-dorogo/">YClients vs Окошко</a> ·
+      <a href="/okoshko-site/blog/klienty-ne-prichodjat/">против no-show</a>
+    </span>
+    <span><a href="https://t.me/okoshko_zapisi_bot">Telegram-бот</a> · <a href="/">лендинг</a></span>
+  </footer>
+</div>
+
+</body>
+</html>
